@@ -232,7 +232,7 @@ def eval_lex_tokens(tokens : typing.List[Token]):
         if (token_type == Token.TYPE_EXPONENT):
             return 3
         if (token_type == Token.TYPE_FUNCTION):
-            return 1 # NOTE: Not sure where functions appear here. Assuming they are like * and /
+            return 4 # NOTE: Not sure where functions appear here
         # add functions here
         console_output_debug_msg(f"get_precedence fn param not recognised token_type:{token_type}")
         return -1
