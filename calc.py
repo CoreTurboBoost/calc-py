@@ -485,10 +485,11 @@ while is_interactive:
     lex_tokens = lex(expression)
     lex_error_count = print_lex_errors(lex_tokens)
     if (lex_error_count > 0):
-        print(f"{lex_error_count} error(s) occured in <expression>")
         if is_interactive:
+            print(f"{lex_error_count} error(s)")
             continue
         else:
+            print(f"{lex_error_count} error(s) occured in <expression>")
             sys.exit()
 
     console_output_debug_msg("All lex tokens:")
