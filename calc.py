@@ -308,9 +308,8 @@ def eval_lex_tokens(tokens : typing.List[Token]):
 
     # debug
     console_output_debug_msg(f"Printing partial processed tokens:")
-    for token in tokens:
-        print(f"{token.lexeame}", end = "")
-    print()
+    debug_token_str = " ".join([token.lexeame for token in tokens])
+    console_output_debug_msg(debug_token_str)
     # /debug
 
     #infix to postfix
