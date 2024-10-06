@@ -409,7 +409,7 @@ def eval_lex_tokens(tokens : typing.List[Token]):
                 break
             operand_a = numbers_stack.pop()
             if (token.type == Token.TYPE_FUNCTION):
-                console_output_debug_msg(f"running function {token.lexeame}")
+                console_output_debug_msg(f"running function {token.lexeame} with parameter {operand_a}")
                 try:
                     numbers_stack.append(decimal.Decimal(KNOWN_FUNCTIONS[token.lexeame.lower()](operand_a)))
                     continue
