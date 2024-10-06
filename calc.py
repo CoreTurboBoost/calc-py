@@ -6,7 +6,7 @@ import sys
 import typing
 
 APP_VERSION_MAJOR = 0
-APP_VERSION_MINOR = 2
+APP_VERSION_MINOR = 3
 
 def log10(x):
     return math.log(x, 10)
@@ -454,35 +454,55 @@ def eval_lex_tokens(tokens : typing.List[Token]):
         return (None, errors)
     return (numbers_stack[0], errors)
 
-if (len(sys.argv) == 1 or sys.argv[1] == "--help" or sys.argv[1] == "-h"):
-    print(f"python3 {sys.argv[0]} <expression>")
-    print( "python3 {-v|-h|__VERSION__}")
-    print( "  -v, --version    print program version and exit")
-    print( "      __VERSION__  output version in specific format")
-    print( "  -h, --help       print this help page and exit")
-    sys.exit()
-if (sys.argv[1] == "--version" or sys.argv[1] == "-v"):
-    print(f"VERSION: {APP_VERSION_MAJOR}.{APP_VERSION_MINOR}")
-    sys.exit()
-if (sys.argv[1] == "__VERSION__"):
-    print(f"{APP_VERSION_MAJOR}.{APP_VERSION_MINOR}")
-    sys.exit()
+is_interactive = False
+if (len(sys.argv) == 1):
+    is_interactive = True
+if len(sys.argv) > 1:
+    if (sys.argv[1] == "--help" or sys.argv[1] == "-h"):
+        print(f"python3 {sys.argv[0]} [expression]")
+        print( "python3 {-v|-h|__VERSION__}")
+        print( "  -v, --version    print program version and exit")
+        print( "      __VERSION__  output version in specific format")
+        print( "  -h, --help       print this help page and exit")
+        sys.exit()
+    if (sys.argv[1] == "--version" or sys.argv[1] == "-v"):
+        print(f"VERSION: {APP_VERSION_MAJOR}.{APP_VERSION_MINOR}")
+        sys.exit()
+    if (sys.argv[1] == "__VERSION__"):
+        print(f"{APP_VERSION_MAJOR}.{APP_VERSION_MINOR}")
+        sys.exit()
 
-expression = sys.argv[1]
-lex_tokens = lex(expression)
-lex_error_count = print_lex_errors(lex_tokens)
-if (lex_error_count > 0):
-    print(f"{lex_error_count} error(s) occured in <expression>")
-    sys.exit()
+while is_interactive:
+    if is_interactive:
+        try:
+            expression = input(">> ").strip()
+        except EOFError:
+            print("\r")
+            expression = "q"
+        if expression == "q" or expression == "exit":
+            sys.exit()
+    else:
+        expression = sys.argv[1]
+    lex_tokens = lex(expression)
+    lex_error_count = print_lex_errors(lex_tokens)
+    if (lex_error_count > 0):
+        print(f"{lex_error_count} error(s) occured in <expression>")
+        if is_interactive:
+            continue
+        else:
+            sys.exit()
 
-console_output_debug_msg("All lex tokens:")
-for token_index, token in enumerate(lex_tokens):
-    console_output_debug_msg(f" [{token_index}] {token.lexeame}")
-console_output_debug_msg("End of tokens")
-evaluated_value, errors = eval_lex_tokens(lex_tokens)
-if (len(errors) > 0):
-    print("Input had errors, no value returned", file = sys.stderr)
-    for error in errors:
-        print(f"Error: {error}", file = sys.stderr)
-    sys.exit(1)
-print(evaluated_value)
+    console_output_debug_msg("All lex tokens:")
+    for token_index, token in enumerate(lex_tokens):
+        console_output_debug_msg(f" [{token_index}] {token.lexeame}")
+    console_output_debug_msg("End of tokens")
+    evaluated_value, errors = eval_lex_tokens(lex_tokens)
+    if (len(errors) > 0):
+        print("Input had errors, no value returned", file = sys.stderr)
+        for error in errors:
+            print(f"Error: {error}", file = sys.stderr)
+        if is_interactive:
+            continue
+        else:
+            sys.exit(1)
+    print(evaluated_value)
