@@ -20,7 +20,7 @@ def cot(x):
     return 1/math.tan(x)
 
 KNOWN_CONSTS = {"pi": math.pi, "e": math.e, "deg2rad": (math.pi/180), "rad2deg": (180/math.pi)}
-KNOWN_FUNCTIONS = {"sqrt": math.sqrt, "log10": log10, "log2": log2, "cos": math.cos, "sin": math.sin, "tan": math.tan, "cosec": cosec, "sec": sec, "cot": cot, "acos": math.acos, "asin": math.asin, "atan": math.atan} # NOTE: These are monadic functions.
+KNOWN_FUNCTIONS = {"sqrt": math.sqrt, "log10": log10, "log2": log2, "cos": math.cos, "sin": math.sin, "tan": math.tan, "cosec": cosec, "sec": sec, "cot": cot, "acos": math.acos, "asin": math.asin, "atan": math.atan} # NOTE: These are monadic functions (takes in a single argument and returns a single argument).
 
 def console_output_debug_msg(message : str, end = "\n"):
     print(f"[debug]: {message}", end = end)
