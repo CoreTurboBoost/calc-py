@@ -471,7 +471,7 @@ if len(sys.argv) > 1:
         print(f"{APP_VERSION_MAJOR}.{APP_VERSION_MINOR}")
         sys.exit()
 
-while is_interactive:
+while True:
     if is_interactive:
         try:
             expression = input(">> ").strip()
@@ -506,3 +506,5 @@ while is_interactive:
         else:
             sys.exit(1)
     print(evaluated_value)
+    if (not is_interactive):
+        sys.exit()
