@@ -55,7 +55,7 @@ class Token:
         elif (enum_type == Token.TYPE_SUBTRACTION):
             return "Subtraction"
         elif (enum_type == Token.TYPE_MULTIPLICATION):
-            return "MultiplicatioN"
+            return "Multiplication"
         elif (enum_type == Token.TYPE_DIVISION):
             return "Division"
         elif (enum_type == Token.TYPE_EXPONENT):
