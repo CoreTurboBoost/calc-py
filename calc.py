@@ -460,7 +460,7 @@ def print_constants() -> None:
 def print_functions() -> None:
     print("Unary Functions")
     for function in KNOWN_FUNCTIONS.keys():
-        print(f" {function} - {KNOWN_FUNCTIONS[function]}")
+        print(f" {function}")
 
 is_interactive = False
 if (len(sys.argv) == 1):
