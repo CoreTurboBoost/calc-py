@@ -453,6 +453,15 @@ def eval_lex_tokens(tokens : typing.List[Token]):
         return (None, errors)
     return (numbers_stack[0], errors)
 
+def print_constants() -> None:
+    print("Constants:")
+    for constant in KNOWN_CONSTS.keys():
+        print(f" {constant} - {KNOWN_CONSTS[constant]}")
+def print_functions() -> None:
+    print("Unary Functions")
+    for function in KNOWN_FUNCTIONS.keys():
+        print(f" {function} - {KNOWN_FUNCTIONS[function]}")
+
 is_interactive = False
 if (len(sys.argv) == 1):
     is_interactive = True
@@ -480,6 +489,10 @@ while True:
             expression = "q"
         if expression == "q" or expression == "exit":
             sys.exit()
+        if expression == "help" or expression == "h":
+            print_constants()
+            print_functions()
+            continue
     else:
         expression = sys.argv[1]
     lex_tokens = lex(expression)
