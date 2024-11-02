@@ -22,8 +22,9 @@ def cot(x):
 KNOWN_CONSTS = {"pi": math.pi, "e": math.e, "deg2rad": (math.pi/180), "rad2deg": (180/math.pi)}
 KNOWN_FUNCTIONS = {"sqrt": math.sqrt, "log10": log10, "log2": log2, "cos": math.cos, "sin": math.sin, "tan": math.tan, "cosec": cosec, "sec": sec, "cot": cot, "acos": math.acos, "asin": math.asin, "atan": math.atan} # NOTE: These are monadic functions (takes in a single argument and returns a single argument).
 
+ENABLED_DEBUG_OUTPUT = True
 def console_output_debug_msg(message : str, end = "\n"):
-    print(f"[debug]: {message}", end = end)
+    if ENABLED_DEBUG_OUTPUT: print(f"[debug]: {message}", end = end)
 
 class Token:
     TYPE_BAD = -1
@@ -492,6 +493,10 @@ while True:
         if expression == "help" or expression == "h":
             print_constants()
             print_functions()
+            continue
+        if expression == "debug":
+            ENABLED_DEBUG_OUTPUT = not ENABLED_DEBUG_OUTPUT
+            print("ENABLED DEBUG OUTPUT" if ENABLED_DEBUG_OUTPUT else "DISABLED DEBUG OUTPUT")
             continue
     else:
         expression = sys.argv[1]
