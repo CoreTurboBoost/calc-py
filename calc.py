@@ -462,6 +462,11 @@ def print_functions() -> None:
     print("Unary Functions")
     for function in KNOWN_FUNCTIONS.keys():
         print(f" {function}")
+def print_commands() -> None:
+    print("Interactive mode commands")
+    print(" help, h  - print help page")
+    print(" exit, q  - exit program")
+    print(" debug    - toggle debug output")
 
 is_interactive = False
 if (len(sys.argv) == 1):
@@ -493,6 +498,7 @@ while True:
         if expression == "help" or expression == "h":
             print_constants()
             print_functions()
+            print_commands()
             continue
         if expression == "debug":
             ENABLED_DEBUG_OUTPUT = not ENABLED_DEBUG_OUTPUT
