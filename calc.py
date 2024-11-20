@@ -306,11 +306,9 @@ def eval_lex_tokens(tokens : typing.List[Token]):
                         cur_token_index += 3
         cur_token_index += 1
 
-    # debug
     console_output_debug_msg(f"Printing partial processed tokens:")
     debug_token_str = " ".join([token.lexeame for token in tokens])
     console_output_debug_msg(debug_token_str)
-    # /debug
 
     #infix to postfix
     open_bracket_count = 0
