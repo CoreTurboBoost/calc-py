@@ -197,7 +197,7 @@ def eval_lex_tokens(tokens : typing.List[Token]):
     '''
     tokens = tokens.copy()
     def get_op_precedence(token_type : Token):
-        # larget number greater precedence
+        # larger number greater precedence
         if (token_type == Token.TYPE_NONE or token_type == Token.TYPE_OPEN_BRACKET):
             return 0
         if (token_type == Token.TYPE_ADDITION or token_type == Token.TYPE_SUBTRACTION):
