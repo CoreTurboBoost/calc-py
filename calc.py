@@ -233,8 +233,7 @@ def eval_lex_tokens(tokens : typing.List[Token]):
         if (token_type == Token.TYPE_EXPONENT):
             return 3
         if (token_type == Token.TYPE_FUNCTION):
-            return 4 # NOTE: Not sure where functions appear here
-        # add functions here
+            return 4
         console_output_debug_msg(f"get_precedence fn param not recognised token_type:{token_type}")
         return -1
     def is_operator(token_type : Token):
@@ -267,7 +266,7 @@ def eval_lex_tokens(tokens : typing.List[Token]):
     zero_token.type = Token.TYPE_NUMBER
     zero_token.lexeame = "0"
 
-    # handled minus signs and convert constants
+    # handle minus signs and convert constants
     cur_token_index = 0
     cur_token = None
     for cur_token_index in range(len(tokens)):
@@ -340,7 +339,6 @@ def eval_lex_tokens(tokens : typing.List[Token]):
                 cur_token = operators_stack[-1]
             if (len(operators_stack) > 0):
                 operators_stack.pop() 
-        # NEW -------  Attempts to reverse the order of the functions if they are placed one after the other without brackets
         elif (is_operator(token.type) and token.type == Token.TYPE_FUNCTION):
             cur_func_prec = get_op_precedence(token.type)
             if len(operators_stack) > 0:
@@ -352,7 +350,6 @@ def eval_lex_tokens(tokens : typing.List[Token]):
                     else:
                         break
             operators_stack.append(token)
-        # /NEW ------
 
         elif (is_operator(token.type)):
             console_output_debug_msg(f"[{token_index}] Considered token as an operator, {token}")
@@ -365,7 +362,7 @@ def eval_lex_tokens(tokens : typing.List[Token]):
             if (cur_op_precedence > stack_top_op_precedence):
                 console_output_debug_msg(f"[{token_index}] Added {token.lexeame} to op stack")
             while (stack_top_op_precedence >= cur_op_precedence):
-#                console_output_debug_msg(f"[{token_index}] Adding operator to post-fix list ({operators_stack[-1].lexeame})")
+                console_output_debug_msg(f"[{token_index}] Adding operator to post-fix list ({operators_stack[-1].lexeame})")
                 console_output_debug_msg(f"[{token_index}] Adding operator to post-fix list ({operators_stack[-1].lexeame}) then added another operator to operators_stack ({token.lexeame})")
                 post_fix_token_list.append(operators_stack.pop())
                 if (len(operators_stack) > 0):
@@ -373,10 +370,6 @@ def eval_lex_tokens(tokens : typing.List[Token]):
                 else:
                     stack_top_op_precedence = get_op_precedence(Token.TYPE_NONE)
             operators_stack.append(token)
-#            if (cur_op_precedence == stack_top_op_precedence):
-#                console_output_debug_msg(f"[{token_index}] Adding operator to post-fix list ({operators_stack[-1].lexeame}) then added another operator to operators_stack ({token.lexeame})")
-#                post_fix_token_list.append(operators_stack.pop())
-#                operators_stack.append(token)
         else:
             error_string = f"[char_index:{token.char_index}] Token list contains unknown or bad token type"
             errors.append(error_string)
