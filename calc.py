@@ -29,6 +29,15 @@ ENABLED_DEBUG_OUTPUT = True
 def console_output_debug_msg(message : str, end = "\n"):
     if ENABLED_DEBUG_OUTPUT: print(f"[debug]: {message}", end = end)
 
+class TokenError:
+    TYPE_NONE = 0
+    TYPE_UNKNOWN_CHAR = 1
+    TYPE_UNKNOWN_IDENTIFIER = 2
+    TYPE_DECIMAL_POINT_COUNT = 3
+    def __init__(self):
+        self.string = ""
+        self.type = TokenError.TYPE_NONE
+
 class Token:
     TYPE_BAD = -1
     TYPE_NONE = 0
@@ -74,22 +83,13 @@ class Token:
             return "Unknown"
 
     # Object specific methods
-    def __init__(self):
-        self.lexeame = ""
-        self.type = Token.TYPE_NONE
-        self.char_index = 0
-        self.error_object = None
+    def __init__(self, lexeame: str = "", token_type: int = TYPE_NONE, char_index: int = 0, error_object: TokenError = None):
+        self.lexeame = lexeame
+        self.type = token_type
+        self.char_index = char_index
+        self.error_object = error_object
     def get_type_str(self):
         return Token.get_str_from_type_enum(self.type)
-
-class TokenError:
-    TYPE_NONE = 0
-    TYPE_UNKNOWN_CHAR = 1
-    TYPE_UNKNOWN_IDENTIFIER = 2
-    TYPE_DECIMAL_POINT_COUNT = 3
-    def __init__(self):
-        self.string = ""
-        self.type = TokenError.TYPE_NONE
 
 def lex(expression : str):
     skip_char_count = 0
