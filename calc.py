@@ -149,59 +149,28 @@ def lex(expression : str):
                 cur_token.error_object.string = f"Unknown constant or function \'{cur_token.lexeame}\'"
             tokens.append(cur_token)
         elif (char == '+'):
-            cur_token = Token()
-            cur_token.char_index = char_index
-            cur_token.type = Token.TYPE_ADDITION
-            cur_token.lexeame = '+'
-            tokens.append(cur_token)
+            tokens.append(Token('+', Token.TYPE_ADDITION, char_index, None))
         elif (char == '-'):
-            cur_token = Token()
-            cur_token.char_index = char_index
-            cur_token.type = Token.TYPE_SUBTRACTION
-            cur_token.lexeame = '-'
-            tokens.append(cur_token)
+            tokens.append(Token('-', Token.TYPE_SUBTRACTION, char_index, None))
         elif (char == '*'):
-            cur_token = Token()
-            cur_token.char_index = char_index
-            cur_token.type = Token.TYPE_MULTIPLICATION
-            cur_token.lexeame = '*'
-            tokens.append(cur_token)
+            tokens.append(Token('*', Token.TYPE_MULTIPLICATION, char_index, None))
         elif (char == '/'):
-            cur_token = Token()
-            cur_token.char_index = char_index
-            cur_token.type = Token.TYPE_DIVISION
-            cur_token.lexeame = '/'
-            tokens.append(cur_token)
+            tokens.append(Token('/', Token.TYPE_DIVISION, char_index, None))
         elif (char == '^'):
-            cur_token = Token()
-            cur_token.char_index = char_index
-            cur_token.type = Token.TYPE_EXPONENT
-            cur_token.lexeame = '^'
-            tokens.append(cur_token)
+            tokens.append(Token('^', Token.TYPE_EXPONENT, char_index, None))
         elif (char == '('):
-            cur_token = Token()
-            cur_token.char_index = char_index
-            cur_token.type = Token.TYPE_OPEN_BRACKET
-            cur_token.lexeame = '('
-            tokens.append(cur_token)
+            tokens.append(Token('(', Token.TYPE_OPEN_BRACKET, char_index, None))
         elif (char == ')'):
-            cur_token = Token()
-            cur_token.char_index = char_index
-            cur_token.type = Token.TYPE_CLOSE_BRACKET
-            cur_token.lexeame = ')'
-            tokens.append(cur_token)
+            tokens.append(Token(')', Token.TYPE_CLOSE_BRACKET, char_index, None))
         else:
-            cur_token = Token()
-            cur_token.char_index = char_index
-            cur_token.type = Token.TYPE_BAD
-            cur_token.lexeame = ""
-            cur_token.error_object = TokenError()
-            cur_token.error_object.type = TokenError.TYPE_UNKNOWN_CHAR
+            error_object = TokenError()
+            error_object.type = TokenError.TYPE_UNKNOWN_CHAR
             if (char.isprintable()):
                 print_char = f"\'{char}\'"
             else:
                 print_char = f"{ord(char)}"
-            cur_token.error_object.string = f"Unknown char {print_char}"
+            error_object.string = f"Unknown char {print_char}"
+            token = Token("", Token.TYPE_BAD, char_index, error_object)
             tokens.append(cur_token)
     return tokens
 
