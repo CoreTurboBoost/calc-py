@@ -20,7 +20,10 @@ def cot(x):
     return 1/math.tan(x)
 
 KNOWN_CONSTS = {"pi": math.pi, "e": math.e, "deg2rad": (math.pi/180), "rad2deg": (180/math.pi)}
-KNOWN_FUNCTIONS = {"sqrt": math.sqrt, "log10": log10, "log2": log2, "cos": math.cos, "sin": math.sin, "tan": math.tan, "cosec": cosec, "sec": sec, "cot": cot, "acos": math.acos, "asin": math.asin, "atan": math.atan} # NOTE: These are monadic functions (takes in a single argument and returns a single argument).
+'''
+NOTE: These functions take a single decimal.Decimal as input and returns a single Decimal.Decimal
+'''
+KNOWN_FUNCTIONS = {"sqrt": math.sqrt, "log10": log10, "log2": log2, "cos": math.cos, "sin": math.sin, "tan": math.tan, "cosec": cosec, "sec": sec, "cot": cot, "acos": math.acos, "asin": math.asin, "atan": math.atan}
 
 ENABLED_DEBUG_OUTPUT = True
 def console_output_debug_msg(message : str, end = "\n"):
@@ -218,9 +221,11 @@ def print_lex_errors(tokens : typing.List[Token]):
     return error_count
 
 def eval_lex_tokens(tokens : typing.List[Token]):
-    # returns (evaluated_value, errors)
-    # evaluated_value : Decimal() or None on error
-    # errors : list[str]
+    '''
+    Returns list(evaluated_value: decimal.Decimal, errors: list[str])
+       evaluated_value : decimal.Decimal() or None on error.
+       errors : list[str], empty list on success.
+    '''
     tokens = tokens.copy()
     def get_op_precedence(token_type : Token):
         # larget number greater precedence
