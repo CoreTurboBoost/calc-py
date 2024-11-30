@@ -458,6 +458,8 @@ while True:
         except EOFError:
             print("\r")
             expression = "q"
+        if len(expression) == 0:
+            continue
         if expression == "q" or expression == "exit":
             sys.exit()
         if expression == "help" or expression == "h":
