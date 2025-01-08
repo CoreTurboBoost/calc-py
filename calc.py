@@ -371,7 +371,7 @@ def eval_lex_tokens(tokens : typing.List[Token]):
             numbers_stack.append(decimal.Decimal(token.lexeame))
         elif (is_operator(token.type)):
             if (len(numbers_stack) < 1):
-                errors.append("0 Too many operators, for the number of operands")
+                errors.append("Too many operators, for the number of operands")
                 break
             operand_a = numbers_stack.pop()
             if (token.type == Token.TYPE_FUNCTION):
