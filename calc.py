@@ -380,7 +380,7 @@ def eval_lex_tokens(tokens : typing.List[Token]):
                     numbers_stack.append(decimal.Decimal(KNOWN_FUNCTIONS[token.lexeame.lower()](operand_a)))
                     continue
                 except ZeroDivisionError:
-                    errors.append(f"{[token.char_index+1]} Function failure, math domain error")
+                    errors.append(f"{[token.char_index+1]} Function failure, division by zero")
                     break
                 except ValueError:
                     errors.append(f"{[token.char_index+1]} Function failure, math domain error")
